@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Using the ContRespPP::gibbs.sampler Function</title>
+
+<script src="data:application/javascript;base64,Ly8gUGFuZG9jIDIuOSBhZGRzIGF0dHJpYnV0ZXMgb24gYm90aCBoZWFkZXIgYW5kIGRpdi4gV2UgcmVtb3ZlIHRoZSBmb3JtZXIgKHRvCi8vIGJlIGNvbXBhdGlibGUgd2l0aCB0aGUgYmVoYXZpb3Igb2YgUGFuZG9jIDwgMi44KS4KZG9jdW1lbnQuYWRkRXZlbnRMaXN0ZW5lcignRE9NQ29udGVudExvYWRlZCcsIGZ1bmN0aW9uKGUpIHsKICB2YXIgaHMgPSBkb2N1bWVudC5xdWVyeVNlbGVjdG9yQWxsKCJkaXYuc2VjdGlvbltjbGFzcyo9J2xldmVsJ10gPiA6Zmlyc3QtY2hpbGQiKTsKICB2YXIgaSwgaCwgYTsKICBmb3IgKGkgPSAwOyBpIDwgaHMubGVuZ3RoOyBpKyspIHsKICAgIGggPSBoc1tpXTsKICAgIGlmICghL15oWzEtNl0kL2kudGVzdChoLnRhZ05hbWUpKSBjb250aW51ZTsgIC8vIGl0IHNob3VsZCBiZSBhIGhlYWRlciBoMS1oNgogICAgYSA9IGguYXR0cmlidXRlczsKICAgIHdoaWxlIChhLmxlbmd0aCA+IDApIGgucmVtb3ZlQXR0cmlidXRlKGFbMF0ubmFtZSk7CiAgfQp9KTsK"></script>
+
+<style type="text/css">
+  code{white-space: pre-wrap;}
+  span.smallcaps{font-variant: small-caps;}
+  span.underline{text-decoration: underline;}
+  div.column{display: inline-block; vertical-align: top; width: 50%;}
+  div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+  ul.task-list{list-style: none;}
+    </style>
+
+
+<style type="text/css">
+  code {
+    white-space: pre;
+  }
+  .sourceCode {
+    overflow: visible;
+  }
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<link rel="stylesheet" href="data:text/css,body%20%7B%0Abackground%2Dcolor%3A%20%23fff%3B%0Amargin%3A%201em%20auto%3B%0Amax%2Dwidth%3A%20700px%3B%0Aoverflow%3A%20visible%3B%0Apadding%2Dleft%3A%202em%3B%0Apadding%2Dright%3A%202em%3B%0Afont%2Dfamily%3A%20%22Open%20Sans%22%2C%20%22Helvetica%20Neue%22%2C%20Helvetica%2C%20Arial%2C%20sans%2Dserif%3B%0Afont%2Dsize%3A%2014px%3B%0Aline%2Dheight%3A%201%2E35%3B%0A%7D%0A%23TOC%20%7B%0Aclear%3A%20both%3B%0Amargin%3A%200%200%2010px%2010px%3B%0Apadding%3A%204px%3B%0Awidth%3A%20400px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Aborder%2Dradius%3A%205px%3B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Afont%2Dsize%3A%2013px%3B%0Aline%2Dheight%3A%201%2E3%3B%0A%7D%0A%23TOC%20%2Etoctitle%20%7B%0Afont%2Dweight%3A%20bold%3B%0Afont%2Dsize%3A%2015px%3B%0Amargin%2Dleft%3A%205px%3B%0A%7D%0A%23TOC%20ul%20%7B%0Apadding%2Dleft%3A%2040px%3B%0Amargin%2Dleft%3A%20%2D1%2E5em%3B%0Amargin%2Dtop%3A%205px%3B%0Amargin%2Dbottom%3A%205px%3B%0A%7D%0A%23TOC%20ul%20ul%20%7B%0Amargin%2Dleft%3A%20%2D2em%3B%0A%7D%0A%23TOC%20li%20%7B%0Aline%2Dheight%3A%2016px%3B%0A%7D%0Atable%20%7B%0Amargin%3A%201em%20auto%3B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dcolor%3A%20%23DDDDDD%3B%0Aborder%2Dstyle%3A%20outset%3B%0Aborder%2Dcollapse%3A%20collapse%3B%0A%7D%0Atable%20th%20%7B%0Aborder%2Dwidth%3A%202px%3B%0Apadding%3A%205px%3B%0Aborder%2Dstyle%3A%20inset%3B%0A%7D%0Atable%20td%20%7B%0Aborder%2Dwidth%3A%201px%3B%0Aborder%2Dstyle%3A%20inset%3B%0Aline%2Dheight%3A%2018px%3B%0Apadding%3A%205px%205px%3B%0A%7D%0Atable%2C%20table%20th%2C%20table%20td%20%7B%0Aborder%2Dleft%2Dstyle%3A%20none%3B%0Aborder%2Dright%2Dstyle%3A%20none%3B%0A%7D%0Atable%20thead%2C%20table%20tr%2Eeven%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Ap%20%7B%0Amargin%3A%200%2E5em%200%3B%0A%7D%0Ablockquote%20%7B%0Abackground%2Dcolor%3A%20%23f6f6f6%3B%0Apadding%3A%200%2E25em%200%2E75em%3B%0A%7D%0Ahr%20%7B%0Aborder%2Dstyle%3A%20solid%3B%0Aborder%3A%20none%3B%0Aborder%2Dtop%3A%201px%20solid%20%23777%3B%0Amargin%3A%2028px%200%3B%0A%7D%0Adl%20%7B%0Amargin%2Dleft%3A%200%3B%0A%7D%0Adl%20dd%20%7B%0Amargin%2Dbottom%3A%2013px%3B%0Amargin%2Dleft%3A%2013px%3B%0A%7D%0Adl%20dt%20%7B%0Afont%2Dweight%3A%20bold%3B%0A%7D%0Aul%20%7B%0Amargin%2Dtop%3A%200%3B%0A%7D%0Aul%20li%20%7B%0Alist%2Dstyle%3A%20circle%20outside%3B%0A%7D%0Aul%20ul%20%7B%0Amargin%2Dbottom%3A%200%3B%0A%7D%0Apre%2C%20code%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0Aborder%2Dradius%3A%203px%3B%0Acolor%3A%20%23333%3B%0Awhite%2Dspace%3A%20pre%2Dwrap%3B%20%0A%7D%0Apre%20%7B%0Aborder%2Dradius%3A%203px%3B%0Amargin%3A%205px%200px%2010px%200px%3B%0Apadding%3A%2010px%3B%0A%7D%0Apre%3Anot%28%5Bclass%5D%29%20%7B%0Abackground%2Dcolor%3A%20%23f7f7f7%3B%0A%7D%0Acode%20%7B%0Afont%2Dfamily%3A%20Consolas%2C%20Monaco%2C%20%27Courier%20New%27%2C%20monospace%3B%0Afont%2Dsize%3A%2085%25%3B%0A%7D%0Ap%20%3E%20code%2C%20li%20%3E%20code%20%7B%0Apadding%3A%202px%200px%3B%0A%7D%0Adiv%2Efigure%20%7B%0Atext%2Dalign%3A%20center%3B%0A%7D%0Aimg%20%7B%0Abackground%2Dcolor%3A%20%23FFFFFF%3B%0Apadding%3A%202px%3B%0Aborder%3A%201px%20solid%20%23DDDDDD%3B%0Aborder%2Dradius%3A%203px%3B%0Aborder%3A%201px%20solid%20%23CCCCCC%3B%0Amargin%3A%200%205px%3B%0A%7D%0Ah1%20%7B%0Amargin%2Dtop%3A%200%3B%0Afont%2Dsize%3A%2035px%3B%0Aline%2Dheight%3A%2040px%3B%0A%7D%0Ah2%20%7B%0Aborder%2Dbottom%3A%204px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Apadding%2Dbottom%3A%202px%3B%0Afont%2Dsize%3A%20145%25%3B%0A%7D%0Ah3%20%7B%0Aborder%2Dbottom%3A%202px%20solid%20%23f7f7f7%3B%0Apadding%2Dtop%3A%2010px%3B%0Afont%2Dsize%3A%20120%25%3B%0A%7D%0Ah4%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23f7f7f7%3B%0Amargin%2Dleft%3A%208px%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Ah5%2C%20h6%20%7B%0Aborder%2Dbottom%3A%201px%20solid%20%23ccc%3B%0Afont%2Dsize%3A%20105%25%3B%0A%7D%0Aa%20%7B%0Acolor%3A%20%230033dd%3B%0Atext%2Ddecoration%3A%20none%3B%0A%7D%0Aa%3Ahover%20%7B%0Acolor%3A%20%236666ff%3B%20%7D%0Aa%3Avisited%20%7B%0Acolor%3A%20%23800080%3B%20%7D%0Aa%3Avisited%3Ahover%20%7B%0Acolor%3A%20%23BB00BB%3B%20%7D%0Aa%5Bhref%5E%3D%22http%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0Aa%5Bhref%5E%3D%22https%3A%22%5D%20%7B%0Atext%2Ddecoration%3A%20underline%3B%20%7D%0A%0Acode%20%3E%20span%2Ekw%20%7B%20color%3A%20%23555%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Edt%20%7B%20color%3A%20%23902000%3B%20%7D%20%0Acode%20%3E%20span%2Edv%20%7B%20color%3A%20%2340a070%3B%20%7D%20%0Acode%20%3E%20span%2Ebn%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Efl%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Ech%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Est%20%7B%20color%3A%20%23d14%3B%20%7D%20%0Acode%20%3E%20span%2Eco%20%7B%20color%3A%20%23888888%3B%20font%2Dstyle%3A%20italic%3B%20%7D%20%0Acode%20%3E%20span%2Eot%20%7B%20color%3A%20%23007020%3B%20%7D%20%0Acode%20%3E%20span%2Eal%20%7B%20color%3A%20%23ff0000%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Efu%20%7B%20color%3A%20%23900%3B%20font%2Dweight%3A%20bold%3B%20%7D%20%0Acode%20%3E%20span%2Eer%20%7B%20color%3A%20%23a61717%3B%20background%2Dcolor%3A%20%23e3d2d2%3B%20%7D%20%0A" type="text/css" />
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Using the ContRespPP::gibbs.sampler Function</h1>
+
+
+<div id="TOC">
+<ul>
+<li><a href="#set-function-parameters">Set Function Parameters</a>
+<ul>
+<li><a href="#experiment-data">Experiment Data</a></li>
+<li><a href="#priors">Priors</a></li>
+<li><a href="#simulation-parameters">Simulation Parameters</a></li>
+<li><a href="#analysis-parameters">Analysis Parameters</a></li>
+<li><a href="#optional-arguments">Optional Arguments</a></li>
+</ul></li>
+<li><a href="#run-gibbs-sampler">Run Gibbs Sampler</a></li>
+<li><a href="#use-results">Use Results</a></li>
+</ul>
+</div>
+
+<p>This example is derived from Sieck and Christensen (2021). For background information such as the research question, why the priors presented here were selected, the details of mission probabilities, etc, please reference “A framework for improving the efficiency of operational testing through Bayesian adaptive design” (Sieck and Christensen, 2021).</p>
+<p>To use this package, first load the package and the example data set included in the package. The provided data set contains a continuous response variable and design matrix for the experiment (see <code>?exData</code> for further description).</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ContRespPP)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">data</span>(<span class="st">&quot;exData&quot;</span>)</span></code></pre></div>
+<div id="set-function-parameters" class="section level1">
+<h1>Set Function Parameters</h1>
+<p>To use <code>ContRespPP::gibbs.sampler</code>, the function arguments need to be set. Arguments can be thought of as one of five types: experiment data, priors, simulation parameters, analysis parameters, and optional arguments.</p>
+<div id="experiment-data" class="section level2">
+<h2>Experiment Data</h2>
+<p>The experiment data arguments include what is commonly referred to in regression as the “design matrix”, the response, and the number of observations that have been seen in the design matrix so far.</p>
+<p>The design matrix is a <span class="math inline">\(n\)</span> by <span class="math inline">\(p\)</span> object (where <span class="math inline">\(p\)</span> is the number of model parameters), which can have the structure of either a dataframe or a matrix. The response contains all of the observations seen to date, which may be in the form of a vector, a dataframe, or a matrix. The response may either have the number of observations that have been seen, or it may have <span class="math inline">\(n\)</span> observations where the observations that have been seen have “NA” entries.</p>
+<p>For this example, we have data loaded in an file named <code>exData</code>. In this data set, the first column is the response variable, and the remaining 13 columns are the entries of design matrix. The purpose of this simulated experiment is to determine if the mean number of miles traveled on one charge is greater than or equal to 400 miles (for a simulated electric semi-truck). We will refer to the mean number of miles traveled as the parameter of interest (<span class="math inline">\(\phi\)</span>), and the threshold value the parameter of interest most obtain as <span class="math inline">\(\phi_0\)</span> (coded as <code>phi.0</code>).</p>
+<p>The experiment selected was a <span class="math inline">\(2^4\)</span> full factorial with five replicates that included main effects and two-way interactions (excluding the uncontrollable factor, <span class="math inline">\(\omega_k\)</span>) for the experimental design, resulting in 80 test events. This design has a power of 80%, with an 80% confidence level, to detect a difference of 50 miles with a standard deviation of 100 miles.</p>
+<p>This example assumes that the first 75 observations of the 80 observations have been seen, and seeks to use predictive probability to determine if the last five observations need to be seen to make a determination about the mean number of miles traveled, or if the experiment has provided enough information to stop testing early.</p>
+<p>Of note, there are limitations to what this R program can support.</p>
+<ol style="list-style-type: decimal">
+<li><p>Experimental designs that can be used include fully randomized designs (e.g., factorial designs and optimal designs) and designs that block on replicates.</p></li>
+<li><p>The priors on all model parameters are assumed to be normal, and the prior on the precision is assumed to be gamma. The user may select the the appropriate values in these priors; however, these priors were selected to ensure computational efficiency.</p></li>
+<li><p>The data is assumed to follow an reference cell ANOVA data model, where the model parameters are mutually independent. The constraint selected is that the first level of each factor (or an interaction that contains a factor at the first level) are all equal to 0. This gives <span class="math inline">\(\eta\)</span>, the baseline parameter, as the first level of each factor. For example, the data model for this data set is:</p></li>
+</ol>
+<p><span class="math display">\[y_{ijklmp|\mu_{ijklm}\sim N(\mu_{ijklm}, \frac{1}{\tau})}\]</span></p>
+<p>where</p>
+<p><span class="math display">\[\mu_{ijklm} = \eta + \alpha_i + \beta_j + \omega_k + \gamma_l + \delta+m + \alpha\beta_{(ij)} + \alpha\gamma_{(il)} + \alpha\delta_{(im)} + \beta\gamma_{(jl)} + \beta\delta_{(jm)} + \delta\gamma_{(lm)}\]</span></p>
+<p>and</p>
+<p><span class="math display">\[ i=1, 2\\ j=1, 2 \\ k=1, 2, 3 \text{ (uncontrolled factor)}) \\ l=1,2 \\ m=1,2  \]</span></p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Design Matrix</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>X <span class="ot">&lt;-</span> exData[,<span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">14</span>)]</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(X)</span></code></pre></div>
+<pre><code>##      V2 V3 V4 V5 V6 V7 V8 V9 V10 V11 V12 V13 V14
+## [1,]  1  0  0  1  0  1  1  0   0   0   0   0   1
+## [2,]  1  1  1  0  0  0  0  1   0   0   0   0   0
+## [3,]  1  0  0  0  0  0  1  0   0   0   0   0   0
+## [4,]  1  0  1  1  0  0  0  0   0   0   0   0   0
+## [5,]  1  1  1  0  0  1  1  1   1   1   1   1   1
+## [6,]  1  1  1  0  0  0  0  1   0   0   0   0   0</code></pre>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Response Column</span></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>Y <span class="ot">&lt;-</span> <span class="fu">as.matrix</span>(exData[,<span class="dv">1</span>], <span class="at">ncol=</span><span class="dv">1</span>) <span class="co"># could also be a vector e.g., Y &lt;- exData[,1]</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Observations Seen</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>n.seen <span class="ot">&lt;-</span> <span class="dv">75</span></span></code></pre></div>
+</div>
+<div id="priors" class="section level2">
+<h2>Priors</h2>
+<p>This program uses a reference cell ANOVA model that constrains the first level of each model parameter (or an interaction that contains the first level of a factor) to 0. Therefore, degenerate priors at 0 were selected for these constrained parameters and are not included in the analysis. The (weakly informative) priors for the unconstrained parameters are below:</p>
+<p><span class="math display">\[ 
+p(\eta) \sim N(400, 100^2) \\ 
+p(\alpha) \sim N(50, 100^2) \\ 
+p(\beta) \sim N(50, 50^2) \\ 
+p(\omega_2) \sim N(-25, 50^2) \\ 
+p(\omega_3) \sim N(-50, 50^2) \\ 
+p(\gamma) \sim N(100, 100^2) \\ 
+p(\delta) \sim N(100, 100^2) \\ 
+p(\tau) ~ \sim \text{Gam}(0.0001, 0.0001)
+\]</span></p>
+<p>The prior on all two way interactions is <span class="math inline">\(N(0, 100^2)\)</span>.</p>
+<p>The set of unconstrained model parameters is captured by <span class="math inline">\(\beta\)</span> (not to be confused with <span class="math inline">\(\beta_j\)</span>). The mean of all the priors (excluding <span class="math inline">\(\tau\)</span>) are assigned to <code>beta.mean</code>, which can either be a matrix (as below) or a vector. The <strong>precision</strong> of the prior is assigned to <code>beta.precision</code>, and may also be either a matrix (as below) or a vector. This results in a prior on <span class="math inline">\(\beta\)</span> that is a multivariate normal distribution with a mean vector equal to the mean of the priors and a precision matrix with a diagonal of the prior precisions and off-diagonals of 0 (to represent independent factors).</p>
+<p>The sampler will initiate the MCMC chain at the mean of the priors selected. For more specific details on the priors, refer to Sieck and Christensen (2021).</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Means for betas</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>beta.mean <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">400</span>, <span class="dv">50</span>, <span class="dv">50</span>, <span class="sc">-</span><span class="dv">25</span>, <span class="sc">-</span><span class="dv">50</span>, <span class="dv">100</span>, <span class="dv">100</span>, <span class="fu">rep</span>(<span class="dv">0</span>, <span class="dv">6</span>)),</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">1</span></span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>) </span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co"># could also be vector: beta.mean &lt;- c(400, 50, 50, -25, -50, 100, 100, rep(0, 6))</span></span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co"># Precisions for betas</span></span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>beta.precision <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">10000</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">10000</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">10000</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">2500</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">2500</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">10000</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">10000</span>, <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">10000</span>, <span class="dv">6</span>)), </span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">1</span></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>) </span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co"># could also be vector: beta.precision &lt;- c(1/10000, 1/10000, 1/10000, 1/2500, 1/2500, 1/10000, 1/10000, rep(1/10000, 6))</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co"># Precision for tau</span></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>shape <span class="ot">&lt;-</span> <span class="fl">0.0001</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a>rate <span class="ot">&lt;-</span> <span class="fl">0.0001</span></span></code></pre></div>
+</div>
+<div id="simulation-parameters" class="section level2">
+<h2>Simulation Parameters</h2>
+<p>These parameters specify the amount of burn-in and number of posterior samples for the conditional draws (i.e., the nested sampler that draws observations of the model parameters, conditioned on the seen and a set of unseen data as defined by the outer sampler) and non-conditional draws (i.e., the outer sampler that draws a set of unseen data for the remaining observations). See Sieck and Christensen (2021) for more details, to include flow charts of the process.</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Conditional Draws</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>b.sim <span class="ot">&lt;-</span> <span class="dv">20000</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>b.burnin <span class="ot">&lt;-</span> <span class="dv">2000</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># Non-Conditional Draws</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>n.sim <span class="ot">&lt;-</span> <span class="dv">1000</span></span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>y.burnin <span class="ot">&lt;-</span> <span class="dv">100</span></span></code></pre></div>
+</div>
+<div id="analysis-parameters" class="section level2">
+<h2>Analysis Parameters</h2>
+<p>To determine if the parameter of interest exceeds the threshold value, the probability of this occurring can be calculated. If this probability is high enough, then the question can be evaluated as met (or not met if low enough). This threshold probability is <code>theta.t</code>, a probability which is used to express how much certainty is required before stating that the parameter of interest exceeds the threshold value.</p>
+<p>As defined above, <code>phi.0</code> is the threshold value that must be obtained by the parameter of interest for the question to be evaluated as met.</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Threshold Value</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>theta.t <span class="ot">&lt;-</span> <span class="fl">0.8</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Metric Threshold Value</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>phi<span class="fl">.0</span> <span class="ot">&lt;-</span> <span class="dv">400</span></span></code></pre></div>
+<p>The <code>prob</code> object is used to support a Bayesian Mission Mean analysis. This analysis uses a Bayesian Mission Mean (BMM; Sieck and Christensen 2021). Each combination of factor levels creates a “mission set” for the system being evaluated that represent operational environments proposed for use. Using a BMM provides a method to obtain a summary statistic based on performance across operational environments without artificially reducing the operational variance. This is accomplished by considering the joint distribution of mission sets and mission means, and then marginalizing over mission sets to obtain a mixture distribution of mission means.</p>
+<p>Mission sets are drawn based on the selected anticipated likelihood of encountering levels. Once the mission sets and the conditional posterior distribution on the model parameters are obtained from the nested sampler, they can be used to induce a distribution on our parameter of interest. This is accomplished by using the mission sets to mix the mission means from the posterior distribution. This induced distribution can then be used to calculate the direct probability that the parameter of interest is greater than the threshold value across all mission sets.</p>
+<p>You can use the <code>prob.creator</code> function to construct the necessary <code>prob</code> matrix for the <code>gibbs.sampler</code> function. For <code>prob.creator</code>: <code>num.factors</code> is the number of factors in the model (e.g., <span class="math inline">\(\alpha_i\)</span> with <span class="math inline">\(i=1,2\)</span> is 1 factor; from above, this example has 5 factors). <code>num.factor.levels</code> contains the number of levels for each factor (e.g., <span class="math inline">\(\alpha_i\)</span> with <span class="math inline">\(i=1,2\)</span> has 2 levels), and may be a vector, a matrix, or a dataframe.</p>
+<p>The likelihood of encountering are captured in the object <code>likelihood.encountering</code>, and can be a vector, dataframe, or matrix. This object, unlike the priors, must include the likelihood of encountering a level for all model parameters (constrained or unconstrained). As an example, below indicates that the likelihood of encountering <span class="math inline">\(\alpha_1\)</span> is 1/2 and the likelihood of encountering <span class="math inline">\(\alpha_2\)</span> is 1/2. Of note, the likelihood of encountering the levels must be in the same order as defined by the factor in the design matrix.</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>num.factors <span class="ot">&lt;-</span> <span class="dv">5</span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>num.factor.levels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>)</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>likelihood.encountering <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="dv">4</span><span class="sc">/</span><span class="dv">9</span>, <span class="dv">5</span><span class="sc">/</span><span class="dv">9</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>)</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>prob <span class="ot">&lt;-</span> <span class="fu">prob.creator</span>(num.factors, num.factor.levels, likelihood.encountering, <span class="at">print.result =</span> <span class="cn">TRUE</span>)</span></code></pre></div>
+<pre><code>##       Factor Likelihood of Encountering
+##  [1,]      1                  0.5000000
+##  [2,]      1                  0.5000000
+##  [3,]      2                  0.4444444
+##  [4,]      2                  0.5555556
+##  [5,]      3                  0.3333333
+##  [6,]      3                  0.3333333
+##  [7,]      3                  0.3333333
+##  [8,]      4                  0.5000000
+##  [9,]      4                  0.5000000
+## [10,]      5                  0.5000000
+## [11,]      5                  0.5000000</code></pre>
+<p>You may also write your own prob matrix, as shown below.</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Mission Probabilities (likelihood of encountering a factor level) </span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>prob <span class="ot">&lt;-</span> <span class="fu">matrix</span>(</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">5</span>, <span class="dv">5</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="dv">4</span><span class="sc">/</span><span class="dv">9</span>, <span class="dv">5</span><span class="sc">/</span><span class="dv">9</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">3</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>, <span class="dv">1</span><span class="sc">/</span><span class="dv">2</span>), </span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">ncol =</span> <span class="dv">2</span>, </span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">dimnames =</span> <span class="fu">list</span>(<span class="cn">NULL</span>, <span class="fu">c</span>(<span class="st">&quot;factor&quot;</span>, <span class="st">&quot;probability&quot;</span>))</span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+<div id="optional-arguments" class="section level2">
+<h2>Optional Arguments</h2>
+<p>By default, the model will utilize two-way interactions from all the main effects defined in the <code>prob</code> object. One option the user has is to remove a factor from consideration within the two-way interactions. For example, we will remove the third model parameter from consideration because it is an uncontrolled factor in the experiment. Note that <code>factor.no.2way</code> should be provided factor numbers to drop two-way interactions involving that factor.</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>factor.no<span class="fl">.2</span>way <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="dv">3</span>)</span></code></pre></div>
+<p>By default, the function will assign the column names from the design matrix to the result posterior dataframe. Alternatively, users can specify their own column names for the result dataframe.</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>colnames.pick <span class="ot">&lt;-</span> <span class="fu">c</span>(</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;eta&quot;</span>, <span class="st">&quot;alpha&quot;</span>, <span class="st">&quot;beta&quot;</span>, <span class="st">&quot;omega2&quot;</span>, <span class="st">&quot;omega3&quot;</span>, </span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;theta&quot;</span>, <span class="st">&quot;gamma&quot;</span>, <span class="st">&quot;alphabeta&quot;</span>, <span class="st">&quot;alphatheta&quot;</span>, </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="st">&quot;alphagamma&quot;</span>, <span class="st">&quot;betatheta&quot;</span>, <span class="st">&quot;betagamma&quot;</span>, <span class="st">&quot;thetagamma&quot;</span>, <span class="st">&quot;tau&quot;</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+</div>
+</div>
+<div id="run-gibbs-sampler" class="section level1">
+<h1>Run Gibbs Sampler</h1>
+<p>Now that the arguments are all specified, we are ready to run the gibbs.sampler.</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>results <span class="ot">&lt;-</span> <span class="fu">gibbs.sampler</span>(</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">X =</span> X, </span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">Y =</span> Y, </span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">n.seen =</span> n.seen, </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">beta.mean =</span> beta.mean, </span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">beta.precision =</span> beta.precision,</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">shape =</span> shape, </span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">rate =</span> rate,</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">n.sim =</span> n.sim, </span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="at">y.burnin =</span> y.burnin, </span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="at">b.sim =</span> b.sim, </span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="at">b.burnin =</span> b.burnin,</span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>  <span class="at">phi.0 =</span> phi<span class="fl">.0</span>, </span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  <span class="at">theta.t =</span> theta.t, </span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="at">prob =</span> prob, </span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  <span class="at">factor.no.2way =</span> factor.no<span class="fl">.2</span>way, </span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="at">colnames.pick =</span> colnames.pick,</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>  <span class="at">seed =</span> <span class="dv">512</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>)</span></code></pre></div>
+<p>As the function runs, it will print status updates.</p>
+<pre><code>## Running Burn-in 1 of 100</code></pre>
+<pre><code>## Running Simulation 1 of 1000</code></pre>
+<pre><code>## Simulation Complete</code></pre>
+</div>
+<div id="use-results" class="section level1">
+<h1>Use Results</h1>
+<p>Calling the results object prints the summarized predictive probability result, which can also be accessed using <code>pp</code> in the results list. Predictive probability captures the probability that the test will end in a success–i.e., in this example, the predictive probability that the experiment will end in stating that the mean number of miles traveled is greater than <code>phi.0</code>. Ultimately, <code>pp</code> helps the user determine if enough information has been obtained about the question of interest to stop testing early. If <code>pp</code> is high enough (e.g., greater than 0.8, 0.9, 0.95 depending on the question), then testing can stop and the unseen observations are not needed. Enough information is known and the question can be evaluated successfully. If <code>pp</code> is low enough (e.g., 0.05, 0.1), then testing can stop and the unseen observations are not needed. Enough information is known and the question can be evaluated unsuccessfully. If <code>pp</code> is moderate (e.g., 0.5, 0.6), more testing is needed before conclusions can be made. In Sieck and Christensen (2021), if <code>pp</code> was greater than 0.95 (or less than 0.05) the test was ended early and the question was evaluated as met (or not met); otherwise, the experiment continued. See Sieck and Christensen (2021) for more details on interpreting results using this method.</p>
+<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>results</span></code></pre></div>
+<pre><code>## PP Result:  0.996</code></pre>
+<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>results<span class="sc">$</span>pp</span></code></pre></div>
+<pre><code>## [1] 0.996</code></pre>
+<p>For this analysis, since pp is high (<span class="math inline">\(\approx\)</span> 1), there is enough evidence to say this test can stop and conclude that the experiment shows that the mean number of miles traveled is greater than phi.0.</p>
+<p>The full dataframe of non-conditional posterior draws of model parameters is accessible with <code>posterior</code> in the results list. This object will be of use to users who are interested in a factor-level analysis in addition to <code>pp</code>.</p>
+<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(results<span class="sc">$</span>posterior)</span></code></pre></div>
+<pre><code>##        eta    alpha       beta     omega2     omega3    theta    gamma
+## 1 357.6536 53.46282   2.988525   3.379527 -12.652324 83.73588 63.24177
+## 2 368.5963 90.22140 -18.666661 -12.660019 -11.706413 53.84956 52.36453
+## 3 349.9539 64.28207 -13.049142  -6.083516  -1.199996 74.69449 66.89165
+## 4 397.4877 81.93208 -46.511384 -29.407213 -30.967942 41.14743 29.48433
+## 5 377.5346 58.27799   9.753360 -25.361909 -20.279684 57.14031 37.45918
+## 6 360.4191 76.64075  -5.671903  31.334907   1.722212 76.31174 42.37495
+##    alphabeta alphatheta alphagamma betatheta betagamma thetagamma          tau
+## 1   4.410309   36.55889  14.597446  53.29916  34.89634  -1.601111 0.0005334451
+## 2 -30.249768   41.76918  -1.355656  97.70014  23.91478  29.630131 0.0004493570
+## 3  15.488622   64.17114 -21.703441  64.79418  32.95136  10.326466 0.0003604222
+## 4  -3.963912   24.89201  -9.134579 101.49910  52.49307  46.780337 0.0003285737
+## 5 -24.899934   45.55776  29.624497  61.87198  50.11454  44.420438 0.0004342848
+## 6 -21.469957   37.75114  15.492202  48.22522  56.11743  -1.615558 0.0003838441</code></pre>
+<p>The vector of test success results for each posterior draw is accessible with <code>indicator</code> in the results list. Every 0 indicates a set of unseen data that, if seen, would have resulted in saying the mean number of miles traveled on one charge was not greater than <code>phi.0</code>. Similarly, every 1 indicates a set of unseen data that, if seen, would have resulted in saying that the mean number of miles traveled on one charger was greater than <code>phi.0</code>.</p>
+<div class="sourceCode" id="cb23"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(results<span class="sc">$</span>indicator)</span></code></pre></div>
+<pre><code>## [1] 1 1 1 1 1 1</code></pre>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
