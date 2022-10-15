@@ -1,4 +1,4 @@
-5c2cce49612a82540a451ae2c0b6e445 *DESCRIPTION
+9eef14ee2a1efb0f110113a833fcb139 *DESCRIPTION
 8c3f11bcb876bea3ed0f19a88207ab26 *NAMESPACE
 941aead8dee8cd61ebb1c9f4b511b331 *NEWS.md
 23d9967bcac768ec1366bba26961d50a *R/data.R
@@ -26,5 +26,5 @@ cdea1c884937ac1ff088484493c098b4 *man/gibbs.sampler.predictive.Rd
 820d6ddd0abfa4b3257c955b950767fa *man/prob.creator.Rd
 4b6e07f9615d41d14f45b4aa4b1dc72f *man/summary.ContRespPP.Rd
 bc610f9817a23634c4e54c7bac1c0062 *tests/testthat.R
-66eaa0592c19b585ed0963cae14e1356 *tests/testthat/test-gibbs_sampler.R
+796e6a6bbffdd775bde8865e2f3c407c *tests/testthat/test-gibbs_sampler.R
 65f904bb4a94deefd23b18e2f5fde6e4 *vignettes/gibbs-sampler.Rmd
